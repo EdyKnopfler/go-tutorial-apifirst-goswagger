@@ -1,0 +1,42 @@
+---
+consumes:
+  - application/com.github.edyknopfler.apifirst.sensor-measurement.v1+json
+info:
+  description: Devolve leituras de sensor guardadas na base de dados
+  title: Leituras de sensor
+  version: 0.0.1
+produces:
+  - application/com.github.edyknopfler.apifirst.measurement-list.v1+json
+schemes:
+  - http
+swagger: "2.0"
+
+definitions:
+  measurement:
+    type: object
+    required:
+      - timeTaken
+      - sensor
+      - value
+    properties:
+      timeTaken:
+        type: string
+        format: date-time
+      sensor:
+        type: string
+        minLength: 8
+      value:
+        type: string
+
+paths:
+  /measurements:
+    get:
+      tags:
+        - measurements
+      responses:
+        200:
+          description: Lista de medições
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/measurement"
