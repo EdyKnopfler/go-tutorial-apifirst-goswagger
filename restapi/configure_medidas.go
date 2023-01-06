@@ -8,10 +8,8 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
 
 	"github.com/edyknopfler/apifirst/restapi/operations"
-	"github.com/edyknopfler/apifirst/restapi/operations/measurements"
 )
 
 //go:generate swagger generate server --target ../../apifirst --name Medidas --spec ../swagger.yml --principal interface{}
@@ -37,12 +35,6 @@ func configureAPI(api *operations.MedidasAPI) http.Handler {
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
-
-	if api.MeasurementsGetMeasurementsHandler == nil {
-		api.MeasurementsGetMeasurementsHandler = measurements.GetMeasurementsHandlerFunc(func(params measurements.GetMeasurementsParams) middleware.Responder {
-			return middleware.NotImplemented("operation measurements.GetMeasurements has not yet been implemented")
-		})
-	}
 
 	api.PreServerShutdown = func() {}
 
