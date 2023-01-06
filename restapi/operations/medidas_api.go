@@ -19,6 +19,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
+	"github.com/edyknopfler/apifirst/fakedb"
 	"github.com/edyknopfler/apifirst/restapi/operations/measurements"
 )
 
@@ -45,7 +46,7 @@ func NewMedidasAPI(spec *loads.Document) *MedidasAPI {
 		JSONProducer: runtime.JSONProducer(),
 
 		MeasurementsGetMeasurementsHandler: measurements.GetMeasurementsHandlerFunc(func(params measurements.GetMeasurementsParams) middleware.Responder {
-			return middleware.NotImplemented("operation measurements.GetMeasurements has not yet been implemented")
+			return measurements.NewGetMeasurementsOK().WithPayload(fakedb.Items)
 		}),
 	}
 }
